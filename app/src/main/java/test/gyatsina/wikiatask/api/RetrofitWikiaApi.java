@@ -13,7 +13,7 @@ import retrofit.RestAdapter.LogLevel;
 import retrofit.client.OkClient;
 import test.gyatsina.wikiatask.WikiaFlags;
 
-import static test.gyatsina.wikiatask.util.MyLog.logv;
+import static test.gyatsina.wikiatask.utils.MyLog.logv;
 
 public class RetrofitWikiaApi {
 

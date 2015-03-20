@@ -1,4 +1,4 @@
-package test.gyatsina.wikiatask.util;
+package test.gyatsina.wikiatask.utils;
 
 import android.util.Log;
 

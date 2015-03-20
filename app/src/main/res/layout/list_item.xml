@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- this is the addView for a history entry -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/main_layout_litem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false">
+
+        <ImageView
+            android:id="@+id/item_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:padding="15dp" />
+
+        <TextView
+            android:id="@+id/item_title"
+            style="@style/LogoListItemTitle" />
+
+    </LinearLayout>
+</LinearLayout>
