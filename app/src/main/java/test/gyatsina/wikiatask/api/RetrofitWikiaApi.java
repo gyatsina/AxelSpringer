@@ -21,6 +21,7 @@ public class RetrofitWikiaApi {
     public static final String STATUS_OK = "ok";
     public static final String CONTROLLER = "WikisApi";
     public static final String GET_LIST = "getList";
+    public static final String GET_DETAILS = "getDetails";
     public static final String GAMING_HUB = "Gaming";
     public static final String ENG_LANG = "en";
     private static final WikiaApi wikiaApi;

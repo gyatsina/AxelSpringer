@@ -1,5 +1,7 @@
 package test.gyatsina.wikiatask.models;
 
+import java.util.List;
+
 public class DetailedItemById {
     private int id;
     private String wordmark;
@@ -7,71 +9,152 @@ public class DetailedItemById {
     private String url;
     private String lang;
     private String domain;
+    private String desc;
+    private String image;
+    private String wam_score;
+    private Stats stats;
+    private OriginalDimensions original_dimensions;
+//    private List<Integer> topUsers [];
+//    private List<String> flags [];
 
-
-//    stats: {
-//        edits: 2203091,
-//                articles: 7085,
-//                pages: 532199,
-//                users: 24136943,
-//                activeUsers: 220,
-//                images: 37676,
-//                videos: 1932,
-//                admins: 54
-//    },
-//    topUsers: [
-//            4454520,
-//            1142365,
-//            1970687,
-//            1187559,
-//            1905698,
-//            3326813,
-//            356904,
-//            1916935,
-//            4767172,
-//            1888721
-//            ],
-//
-//    flags: [ ],
-//    desc: "The Call of Duty Wiki is the number one place for Call of Duty information on the web. We host detailed information on everything Call of Duty; whether it be the campaign levels of Call of Duty 2 or the weapons from Call of Duty: Black Ops. We're currently working on over 5,500 pages, and we maintain around 29,000 images used to adorn our articles and gallery pages. We're always striving to improve our information, so feel free to stop down and join in! Or maybe you're just stuck on a level, or want to know more about your favorite weapon. We'll be able to help.",
-//    image: "http://vignette3.wikia.nocookie.net/wikiaglobal/images/d/da/Wikia-Visualization-Main%2CCallofduty.png/revision/latest?cb=20120828154217",
-//    wam_score: "98.5521",
-//    original_dimensions: {
-//        width: "320",
-//                height: "320"
-//    }
-
-    public DetailedItemById(int id, String name, String hub, String language, String topic, String domain) {
+//    public DetailedItemById(int id, String wordmark, String title, String url, String lang, String domain, String desc, String image, String wam_score, Stats stats, OriginalDimensions original_dimensions, List<Integer>[] topUsers, List<String>[] flags) {
+    public DetailedItemById(int id, String wordmark, String title, String url, String lang, String domain, String desc, String image, String wam_score, Stats stats, OriginalDimensions original_dimensions) {
         this.id = id;
-        this.name = name;
-        this.hub = hub;
-        this.language = language;
-        this.topic = topic;
+        this.wordmark = wordmark;
+        this.title = title;
+        this.url = url;
+        this.lang = lang;
         this.domain = domain;
+        this.desc = desc;
+        this.image = image;
+        this.wam_score = wam_score;
+        this.stats = stats;
+        this.original_dimensions = original_dimensions;
+//        this.topUsers = topUsers;
+//        this.flags = flags;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getWordmark() {
+        return wordmark;
     }
 
-    public String getHub() {
-        return hub;
+    public String getTitle() {
+        return title;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getUrl() {
+        return url;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getLang() {
+        return lang;
     }
 
     public String getDomain() {
         return domain;
     }
-}
 
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getWam_score() {
+        return wam_score;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public OriginalDimensions getOriginal_dimensions() {
+        return original_dimensions;
+    }
+
+//    public List<Integer>[] getTopUsers() {
+//        return topUsers;
+//    }
+//
+//    public List<String>[] getFlags() {
+//        return flags;
+//    }
+
+    public class Stats {
+        private int edits;
+        private int articles;
+        private int pages;
+        private int users;
+        private int activeUsers;
+        private int images;
+        private int videos;
+        private int admins;
+
+        public Stats(int edits, int articles, int pages, int users, int activeUsers, int images, int videos, int admins) {
+            this.edits = edits;
+            this.articles = articles;
+            this.pages = pages;
+            this.users = users;
+            this.activeUsers = activeUsers;
+            this.images = images;
+            this.videos = videos;
+            this.admins = admins;
+        }
+
+        public int getEdits() {
+            return edits;
+        }
+
+        public int getArticles() {
+            return articles;
+        }
+
+        public int getPages() {
+            return pages;
+        }
+
+        public int getUsers() {
+            return users;
+        }
+
+        public int getActiveUsers() {
+            return activeUsers;
+        }
+
+        public int getImages() {
+            return images;
+        }
+
+        public int getVideos() {
+            return videos;
+        }
+
+        public int getAdmins() {
+            return admins;
+        }
+    }
+
+    public class OriginalDimensions{
+        private String width;
+        private String height;
+
+        public OriginalDimensions(String width, String height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        public String getWidth() {
+            return width;
+        }
+
+        public String getHeight() {
+            return height;
+        }
+    }
+}
