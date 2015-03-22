@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Most popular Gaming wikis</string>
     <string name="hello_world">Hello world!</string>
-    <string name="welcome"><b>Welcome to Wikia \n technical task!</b></string>
+    <string name="welcome"><b>[ Welcome to ] \n \n [ Wikia technical task! ]</b></string>
 
     <!--Pull to refresh strings-->
     <string name="refresh_pull_down">Pull down to refresh</string>

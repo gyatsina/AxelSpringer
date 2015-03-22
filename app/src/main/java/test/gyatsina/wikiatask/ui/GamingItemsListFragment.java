@@ -19,20 +19,17 @@ import test.gyatsina.wikiatask.adapters.GamingItemsAdapter;
 import test.gyatsina.wikiatask.api.RetrofitWikiaApi;
 import test.gyatsina.wikiatask.event.GamingItemsChangedEvent;
 import test.gyatsina.wikiatask.models.ComplexGameItem;
-import test.gyatsina.wikiatask.models.GamingItemInList;
 import test.gyatsina.wikiatask.repository.GameItemsRequestManager;
 import test.gyatsina.wikiatask.repository.Repository;
-import test.gyatsina.wikiatask.utils.MyLog;
 
 public class GamingItemsListFragment extends BaseFragment {
-    private static final String CLASS_TAG = "GamingItemsListFragment";
+    public static final String CLASS_TAG = "GamingItemsListFragment";
     private PullToRefreshListView refreshableListView;
     private GamingItemsAdapter gamingItemsAdapter;
     private GameItemsRequestManager gamingRequestManager;
     private static final String LIST_STATE = "listState";
     private static final String PARCEL_STATE = "parcelState";
     private int mListState = 0;
-    private int testSelection = 11;
     private Parcelable parcelState;
     private ListView gamingItemsListView;
 
@@ -51,32 +48,8 @@ public class GamingItemsListFragment extends BaseFragment {
 
         if (savedInstanceState != null) {
             mListState = savedInstanceState.getInt(LIST_STATE);
-//            parcelState = savedInstanceState.getParcelable(PARCEL_STATE);
-//            MyLog.v("---------!!!!!!!!!!!!!!!-----------1-mListState= ", mListState);
-//            MyLog.v("---------!!!!!!!!!!!!!!!------------getLastVisiblePosition= ", gamingItemsListView.getLastVisiblePosition());
-////            gamingItemsListView.post(new Runnable() {
-////                @Override
-////                public void run() {
-////                    gamingItemsListView.requestFocusFromTouch();
-////                    gamingItemsListView.setSelection(mListState);
-////                    gamingItemsListView.requestFocus();
-////                    gamingItemsAdapter.notifyDataSetChanged();
-////                }
-////            });
-//            if (gamingItemsListView.getLastVisiblePosition() != mListState) {
-//                gamingItemsListView.clearFocus();
-//                gamingItemsListView.setSelection(mListState);
-//                gamingItemsListView.requestFocus();
-//
-//                MyLog.v("---------!!!!!!!!!!!!!!!-----------2-mListState= ", mListState);
-//            }
-//
-//            gamingItemsListView.onRestoreInstanceState(parcelState);
+            gamingItemsListView.setSelection(mListState);
         }
-        final int position = mListState;
-        MyLog.v("***onActivityCreated  setSelection   selection ", position);
-
-//        gamingItemsListView.setSelection(21);
     }
 
     @Override
@@ -94,7 +67,6 @@ public class GamingItemsListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
-//        Repository<GamingItemInList> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
         Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
         gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitWikiaApi.getWikiaApi());
 
@@ -103,40 +75,6 @@ public class GamingItemsListFragment extends BaseFragment {
         gamingItemsListView.setDividerHeight(1);
         gamingItemsAdapter = new GamingItemsAdapter(getActivity());
         gamingItemsListView.setAdapter(gamingItemsAdapter);
-        int selection = -1;
-        if (savedInstanceState != null) {
-            selection = savedInstanceState.getInt(LIST_STATE);
-            testSelection = selection;
-        } else {
-
-        }
-
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-                MyLog.v("***setSelection    testSelection ", testSelection);
-                MyLog.v("***setSelection   selection ", selection);
-//            }
-//        }, 1000);
-
-        gamingItemsListView.setSelection(testSelection);
-
-//        if (savedInstanceState != null) {
-//            parcelState = savedInstanceState.getParcelable(PARCEL_STATE);
-//            gamingItemsListView.onRestoreInstanceState(parcelState);
-//
-//            mListState = savedInstanceState.getInt(LIST_STATE);
-//            gamingItemsAdapter.notifyDataSetChanged();
-//            gamingItemsListView.clearFocus();
-//            gamingItemsListView.post(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    gamingItemsListView.setSelection(mListState);
-//                    gamingItemsAdapter.notifyDataSetChanged();
-//                }
-//            });
-//        }
 
         refreshableListView.setMode(PullToRefreshBase.Mode.BOTH);
         refreshableListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -153,30 +91,10 @@ public class GamingItemsListFragment extends BaseFragment {
             }
         });
 
-
-//        refreshableListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
-//        refreshableListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-//            @Override
-//            public void onRefresh(PullToRefreshBase<ListView> listViewPullToRefreshBase) {
-//                if (logoMode == LogoMode.ALL) {
-//                    gamingRequestManager.getLogoNextItems();
-//                    refreshableListView.onRefreshComplete();
-//                } else if (logoMode == LogoMode.CATEGORY_ID) {
-//                    gamingRequestManager.getLogosNextPageByCategoryId(mCategoryId);
-//                    refreshableListView.onRefreshComplete();
-//                } else if (logoMode == LogoMode.SEARCH_MORE_LOGO) {
-//                    gamingRequestManager.getLogosNextPageByLocation(searchWhat, searchWhere);
-//                    refreshableListView.onRefreshComplete();
-//                }
-//
-//            }
-//        });
-
         return fragmentView;
     }
 
     private void updateGamingList() {
-//        List<GamingItemInList> gamingList = gamingRequestManager.getGamingList();
         List<ComplexGameItem> gamingList = gamingRequestManager.getGamingList();
         showGamingList(gamingList);
     }
@@ -186,7 +104,6 @@ public class GamingItemsListFragment extends BaseFragment {
         updateGamingList();
     }
 
-//    private void showGamingList(List<GamingItemInList> gamingList) {
     private void showGamingList(List<ComplexGameItem> gamingList) {
         gamingItemsAdapter.setList(gamingList);
         if (!gamingList.isEmpty()) {

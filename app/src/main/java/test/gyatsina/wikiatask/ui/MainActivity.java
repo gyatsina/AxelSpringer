@@ -30,13 +30,18 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GamingItemsListFragment categoriesPagerFragment = new GamingItemsListFragment();
-        showFragment(categoriesPagerFragment, false);
+
+        if (savedInstanceState == null) {
+            GamingItemsListFragment gamingFragment = new GamingItemsListFragment();
+            showFragment(gamingFragment, false, GamingItemsListFragment.CLASS_TAG);
+        } else {
+            GamingItemsListFragment gamingFragment = (GamingItemsListFragment) getSupportFragmentManager().findFragmentByTag(GamingItemsListFragment.CLASS_TAG);
+        }
     }
 
-    public void showFragment(Fragment fragment, boolean addToBackStack) {
+    public void showFragment(Fragment fragment, boolean addToBackStack, String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_frame, fragment);
+        transaction.replace(R.id.fragment_frame, fragment, tag);
         if (addToBackStack) {
             transaction.addToBackStack(null);
         }

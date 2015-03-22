@@ -52,14 +52,6 @@ public class BaseFragment extends Fragment {
         return eventBus;
     }
 
-    public void hideViewElement(View view) {
-        view.setVisibility(View.GONE);
-    }
-
-    protected void showProgressDialog(final String title, final String message, final boolean cancelable) {
-        getAppActivity().showProgressDialog(title, message, cancelable);
-    }
-
     protected void showLoadingProgressDialog() {
 //        dismissProgressDialog();
         getAppActivity().showProgressDialog(getResources().getString(R.string.progress), getResources().getString(R.string.progress_loading), true);
