@@ -12,6 +12,9 @@ import test.gyatsina.wikiatask.WikiaApplication;
 import test.gyatsina.wikiatask.event.ErrorEvent;
 import test.gyatsina.wikiatask.utils.Toasts;
 
+/**
+ * Created by gyatsina
+ */
 public class BaseFragment extends Fragment {
     protected static final String CLASS_TAG = "BaseFragment";
     protected static final String CATEGORY_ID_KEY = "categoryIdKey";

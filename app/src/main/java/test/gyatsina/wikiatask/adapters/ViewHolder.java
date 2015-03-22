@@ -3,13 +3,15 @@ package test.gyatsina.wikiatask.adapters;
 import android.util.SparseArray;
 import android.view.View;
 
+/**
+ * Created by gyatsina
+ */
 public final class ViewHolder {
 
   private ViewHolder() {
     // helper class with static methods
   }
 
-  // I added a generic return type to reduce the casting noise in client code
   @SuppressWarnings("unchecked")
   public static <T extends View> T get(View view, int id) {
 

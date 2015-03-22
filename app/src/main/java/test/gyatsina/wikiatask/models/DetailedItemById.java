@@ -1,7 +1,8 @@
 package test.gyatsina.wikiatask.models;
 
-import java.util.List;
-
+/**
+ * Created by gyatsina
+ */
 public class DetailedItemById {
     private int id;
     private String wordmark;
@@ -14,10 +15,7 @@ public class DetailedItemById {
     private String wam_score;
     private Stats stats;
     private OriginalDimensions original_dimensions;
-//    private List<Integer> topUsers [];
-//    private List<String> flags [];
 
-//    public DetailedItemById(int id, String wordmark, String title, String url, String lang, String domain, String desc, String image, String wam_score, Stats stats, OriginalDimensions original_dimensions, List<Integer>[] topUsers, List<String>[] flags) {
     public DetailedItemById(int id, String wordmark, String title, String url, String lang, String domain, String desc, String image, String wam_score, Stats stats, OriginalDimensions original_dimensions) {
         this.id = id;
         this.wordmark = wordmark;
@@ -30,8 +28,6 @@ public class DetailedItemById {
         this.wam_score = wam_score;
         this.stats = stats;
         this.original_dimensions = original_dimensions;
-//        this.topUsers = topUsers;
-//        this.flags = flags;
     }
 
     public int getId() {
@@ -77,14 +73,6 @@ public class DetailedItemById {
     public OriginalDimensions getOriginal_dimensions() {
         return original_dimensions;
     }
-
-//    public List<Integer>[] getTopUsers() {
-//        return topUsers;
-//    }
-//
-//    public List<String>[] getFlags() {
-//        return flags;
-//    }
 
     public class Stats {
         private int edits;

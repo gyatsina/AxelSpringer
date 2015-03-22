@@ -17,7 +17,6 @@ import test.gyatsina.wikiatask.models.GamingItemInList;
 /**
  * Created by gyatsina
  */
-//public class GamingItemsAdapter extends BindableArrayAdapter<GamingItemInList> {
 public class GamingItemsAdapter extends BindableArrayAdapter<ComplexGameItem> {
     Context context;
 

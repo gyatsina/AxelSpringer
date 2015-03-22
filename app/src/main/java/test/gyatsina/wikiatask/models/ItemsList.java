@@ -2,6 +2,9 @@ package test.gyatsina.wikiatask.models;
 
 import java.util.List;
 
+/**
+ * Created by gyatsina
+ */
 public class ItemsList<T>  {
     private List<T> items;
     private int next;

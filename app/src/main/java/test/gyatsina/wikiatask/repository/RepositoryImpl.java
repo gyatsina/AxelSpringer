@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Created by gyatsina
+ */
 public class RepositoryImpl<T> implements Repository<T> {
     private List<T> items;
     private int maxBatch;

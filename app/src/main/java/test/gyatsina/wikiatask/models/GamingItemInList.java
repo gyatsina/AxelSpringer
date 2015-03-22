@@ -1,5 +1,8 @@
 package test.gyatsina.wikiatask.models;
 
+/**
+ * Created by gyatsina
+ */
 public class GamingItemInList {
     private int id;
     private String name;

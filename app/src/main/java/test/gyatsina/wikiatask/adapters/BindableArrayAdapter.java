@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Created by gyatsina
+ */
+
 public abstract class BindableArrayAdapter<T> extends BindableAdapter<T> {
 
     private List<T> list;

@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.ContextThemeWrapper;
 
 /**
- * Created by gyatsina on 3/5/2015.
+ * Created by gyatsina
  */
 public class BaseActivity extends ActionBarActivity {
     protected ProgressDialog progressDialog;

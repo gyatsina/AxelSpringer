@@ -96,7 +96,7 @@ public class GamingItemsListFragment extends BaseFragment {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
 //        Repository<GamingItemInList> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
         Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
-        gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitWikiaApi.getWikiaApi(getActivity()));
+        gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitWikiaApi.getWikiaApi());
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
         gamingItemsListView = refreshableListView.getRefreshableView();

@@ -2,6 +2,9 @@ package test.gyatsina.wikiatask.repository;
 
 import java.util.List;
 
+/**
+ * Created by gyatsina
+ */
 public interface Repository<T> {
     void add(T item);
 

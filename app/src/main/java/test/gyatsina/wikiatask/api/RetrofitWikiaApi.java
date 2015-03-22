@@ -15,17 +15,18 @@ import test.gyatsina.wikiatask.WikiaFlags;
 
 import static test.gyatsina.wikiatask.utils.MyLog.logv;
 
+/**
+ * Created by gyatsina
+ */
 public class RetrofitWikiaApi {
 
     private static final String TAG = "RetrofitWikiaApi";
-    public static final String STATUS_OK = "ok";
     public static final String CONTROLLER = "WikisApi";
     public static final String GET_LIST = "getList";
     public static final String GET_DETAILS = "getDetails";
     public static final String GAMING_HUB = "Gaming";
     public static final String ENG_LANG = "en";
     private static final WikiaApi wikiaApi;
-    private static Context context;
 
     static {
         LogLevel logLevel = WikiaFlags.LOG_ENABLED ? LogLevel.FULL : LogLevel.NONE;
@@ -62,8 +63,7 @@ public class RetrofitWikiaApi {
         // This is a singleton
     }
 
-    public static WikiaApi getWikiaApi(Context mContext) {
-        context = mContext;
+    public static WikiaApi getWikiaApi() {
         if (wikiaApi == null) {
             throw new IllegalStateException("You need to call init function first!");
         }

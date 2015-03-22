@@ -20,7 +20,9 @@ import test.gyatsina.wikiatask.models.GamingItemInList;
 import test.gyatsina.wikiatask.models.ItemsList;
 import test.gyatsina.wikiatask.utils.MyLog;
 
-
+/**
+ * Created by gyatsina
+ */
 public class MainActivity extends BaseActivity {
     private static String CLASS_TAG = "MainActivity";
 

@@ -1,5 +1,8 @@
 package test.gyatsina.wikiatask;
 
+/**
+ * Created by gyatsina
+ */
 public class WikiaFlags {
 
     public static final boolean DEV_MODE = BuildConfig.DEBUG;

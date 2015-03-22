@@ -9,9 +9,11 @@ import test.gyatsina.wikiatask.models.GamingItemInList;
 import test.gyatsina.wikiatask.repository.Repository;
 import test.gyatsina.wikiatask.repository.RepositoryImpl;
 
+/**
+ * Created by gyatsina
+ */
 public class WikiaApplication extends Application {
     private EventBus eventBus;
-//    private Repository<GamingItemInList> gamingRepository;
     private Repository<ComplexGameItem> gamingRepository;
 
     public static WikiaApplication from(Context context) {
@@ -29,10 +31,6 @@ public class WikiaApplication extends Application {
     public EventBus getEventBus() {
         return eventBus;
     }
-
-//    public Repository<GamingItemInList> getGamingItemsRepository() {
-//        return gamingRepository;
-//    }
 
     public Repository<ComplexGameItem> getGamingItemsRepository() {
         return gamingRepository;
