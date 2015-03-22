@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Most popular Gaming wikis</string>
+    <string name="app_title">Most popular Gaming wikis</string>
+    <string name="app_name">Wikia Task</string>
     <string name="hello_world">Hello world!</string>
     <string name="welcome"><b>[ Welcome to ] \n \n [ Wikia technical task! ]</b></string>
 
