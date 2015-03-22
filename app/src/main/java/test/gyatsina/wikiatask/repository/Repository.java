@@ -16,4 +16,8 @@ public interface Repository<T> {
     int size();
 
     T findByNumber(int id);
+
+    void setLimit(int limit);
+
+    int getLimit();
 }

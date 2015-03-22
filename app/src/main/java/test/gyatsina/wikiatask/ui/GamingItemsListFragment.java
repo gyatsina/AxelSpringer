@@ -2,6 +2,7 @@ package test.gyatsina.wikiatask.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,72 @@ import test.gyatsina.wikiatask.event.GamingItemsChangedEvent;
 import test.gyatsina.wikiatask.models.GamingItemInList;
 import test.gyatsina.wikiatask.repository.GameItemsRequestManager;
 import test.gyatsina.wikiatask.repository.Repository;
+import test.gyatsina.wikiatask.utils.MyLog;
 
 public class GamingItemsListFragment extends BaseFragment {
     private static final String CLASS_TAG = "GamingItemsListFragment";
     private PullToRefreshListView refreshableListView;
     private GamingItemsAdapter gamingItemsAdapter;
     private GameItemsRequestManager gamingRequestManager;
+    private static final String LIST_STATE = "listState";
+    private static final String PARCEL_STATE = "parcelState";
+    private int mListState = 0;
+    private int testSelection = 11;
+    private Parcelable parcelState;
+    private ListView gamingItemsListView;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int motionPosition = gamingItemsListView.getLastVisiblePosition();
+        parcelState = gamingItemsListView.onSaveInstanceState();
+        outState.putInt(LIST_STATE, motionPosition);
+        outState.putParcelable(PARCEL_STATE, parcelState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+//        if (savedInstanceState != null) {
+//            mListState = savedInstanceState.getInt(LIST_STATE);
+//            parcelState = savedInstanceState.getParcelable(PARCEL_STATE);
+//            MyLog.v("---------!!!!!!!!!!!!!!!-----------1-mListState= ", mListState);
+//            MyLog.v("---------!!!!!!!!!!!!!!!------------getLastVisiblePosition= ", gamingItemsListView.getLastVisiblePosition());
+////            gamingItemsListView.post(new Runnable() {
+////                @Override
+////                public void run() {
+////                    gamingItemsListView.requestFocusFromTouch();
+////                    gamingItemsListView.setSelection(mListState);
+////                    gamingItemsListView.requestFocus();
+////                    gamingItemsAdapter.notifyDataSetChanged();
+////                }
+////            });
+//            if (gamingItemsListView.getLastVisiblePosition() != mListState) {
+//                gamingItemsListView.clearFocus();
+//                gamingItemsListView.setSelection(mListState);
+//                gamingItemsListView.requestFocus();
+//
+//                MyLog.v("---------!!!!!!!!!!!!!!!-----------2-mListState= ", mListState);
+//            }
+//
+//            gamingItemsListView.onRestoreInstanceState(parcelState);
+//        }
+        final int position = mListState;
+//        gamingItemsListView.setSelection(21);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showLoadingProgressDialog();
+        updateGamingList();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,23 +95,44 @@ public class GamingItemsListFragment extends BaseFragment {
         gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitWikiaApi.getWikiaApi(getActivity()));
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
-        ListView gamingItemsListView = refreshableListView.getRefreshableView();
+        gamingItemsListView = refreshableListView.getRefreshableView();
         gamingItemsListView.setDividerHeight(1);
-//        logosItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int listViewPosition, long id) {
-//                if (!gamingItemsAdapter.isEmpty()) {
-//                    MainActivity activity = (MainActivity) getActivity();
-//                    LogoItemInList logo = gamingItemsAdapter.getItem(listViewPosition - 1);
-//                    String contentId = logo.getId();
-//                    activity.goToDetailCategoryScreen(ScreenIdNames.LOGO_DETAILS, contentId);
-//                } else {
-//                    MyLog.e(CLASS_TAG, "Failed to click on item, empty adapter");
-//                }
-//            }
-//        });
         gamingItemsAdapter = new GamingItemsAdapter(getActivity());
         gamingItemsListView.setAdapter(gamingItemsAdapter);
+        int selection = -1;
+        if (savedInstanceState != null) {
+            selection = savedInstanceState.getInt(LIST_STATE);
+            testSelection = selection;
+        } else {
+
+        }
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+                MyLog.v("***setSelection    testSelection ", testSelection);
+                MyLog.v("***setSelection   selection ", selection);
+//            }
+//        }, 1000);
+
+        gamingItemsListView.setSelection(testSelection);
+
+//        if (savedInstanceState != null) {
+//            parcelState = savedInstanceState.getParcelable(PARCEL_STATE);
+//            gamingItemsListView.onRestoreInstanceState(parcelState);
+//
+//            mListState = savedInstanceState.getInt(LIST_STATE);
+//            gamingItemsAdapter.notifyDataSetChanged();
+//            gamingItemsListView.clearFocus();
+//            gamingItemsListView.post(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    gamingItemsListView.setSelection(mListState);
+//                    gamingItemsAdapter.notifyDataSetChanged();
+//                }
+//            });
+//        }
 
         refreshableListView.setMode(PullToRefreshBase.Mode.BOTH);
         refreshableListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -63,9 +145,7 @@ public class GamingItemsListFragment extends BaseFragment {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> listViewPullToRefreshBase) {
-
-//                    gamingRequestManager.getLogoNextItems();
-
+                gamingRequestManager.getGamingListNextItems();
             }
         });
 
@@ -89,13 +169,6 @@ public class GamingItemsListFragment extends BaseFragment {
 //        });
 
         return fragmentView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        showLoadingProgressDialog();
-        updateGamingList();
     }
 
     private void updateGamingList() {

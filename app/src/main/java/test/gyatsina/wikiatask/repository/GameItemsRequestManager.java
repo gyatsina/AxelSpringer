@@ -16,13 +16,14 @@ import test.gyatsina.wikiatask.models.ItemsList;
 import test.gyatsina.wikiatask.utils.MyLog;
 
 /**
- * Created by gyatsina on 2/24/2015.
+ * Created by gyatsina 
  */
 public class GameItemsRequestManager {
     private static final String CLASS_TAG = "GameItemsRequestManager";
     private final EventBus eventBus;
     private final Repository<GamingItemInList> gamingListRepository;
     private final WikiaApi wikiaApi;
+    private final int itemsInBatch = 25;
 
     public GameItemsRequestManager(EventBus eventBus, Repository<GamingItemInList> gamingListRepository, WikiaApi wikiaApi) {
         this.eventBus = eventBus;
@@ -30,7 +31,7 @@ public class GameItemsRequestManager {
         this.wikiaApi = wikiaApi;
     }
 
-    public void cleanGamingListRepository(){
+    public void cleanGamingListRepository() {
         gamingListRepository.removeAll();
     }
 
@@ -42,20 +43,21 @@ public class GameItemsRequestManager {
     public List<GamingItemInList> getGamingList() {
         if (gamingListRepository.size() == 0) {
             wikiaApi.getGamingItemsList(RetrofitWikiaApi.CONTROLLER, RetrofitWikiaApi.GET_LIST, RetrofitWikiaApi.GAMING_HUB,
-                    RetrofitWikiaApi.ENG_LANG, 25, new Callback<ItemsList<GamingItemInList>>() {
-                @Override
-                public void success(ItemsList<GamingItemInList> response, Response response2) {
-                    gamingListRepository.removeAll();
-                    gamingListRepository.addAll(response.getItems());
-                    eventBus.post(new GamingItemsChangedEvent());
-                }
+                    RetrofitWikiaApi.ENG_LANG, 1, new Callback<ItemsList<GamingItemInList>>() {
+                        @Override
+                        public void success(ItemsList<GamingItemInList> response, Response response2) {
+                            gamingListRepository.removeAll();
+                            gamingListRepository.addAll(response.getItems());
+                            gamingListRepository.setLimit(response.getBatches());
+                            eventBus.post(new GamingItemsChangedEvent());
+                        }
 
-                @Override
-                public void failure(RetrofitError retrofitError) {
-                    MyLog.e(CLASS_TAG, "Failed to get gaming items list: " + retrofitError.getMessage());
-                    eventBus.post(new ErrorEvent(R.string.request_error));
-                }
-            });
+                        @Override
+                        public void failure(RetrofitError retrofitError) {
+                            MyLog.e(CLASS_TAG, "Failed to get gaming items list: " + retrofitError.getMessage());
+                            eventBus.post(new ErrorEvent(R.string.request_error));
+                        }
+                    });
         }
 
         List<GamingItemInList> gamingList = gamingListRepository.getAll();
@@ -63,20 +65,28 @@ public class GameItemsRequestManager {
         return gamingList;
     }
 
-//    public void getLogoNextItems() {
-//        int itemsSaved = gamingListRepository.size();
-//        wikiaApi.getLogosNextPage(itemsSaved, new Callback<ItemsList<GamingItemInList>>() {
-//            @Override
-//            public void success(ItemsListParcelable<GamingItemInList> response, Response response2) {
-//                gamingListRepository.addAll(response.getItems());
-//                eventBus.post(new GamingItemsChangedEvent());
-//            }
-//
-//            @Override
-//            public void failure(RetrofitError retrofitError) {
-//                MyLog.e(CLASS_TAG, "Failed to get next page logos: " + retrofitError.getMessage());
-//                eventBus.post(new ErrorEvent(R.string.request_error));
-//            }
-//        });
-//    }
+    public void getGamingListNextItems() {
+        int itemsSaved = gamingListRepository.size();
+        int batchToLoad = itemsSaved/itemsInBatch + 1;
+        int batchLimit = gamingListRepository.getLimit();
+        if (batchToLoad > batchLimit){
+            eventBus.post(new GamingItemsChangedEvent());
+            return;
+        }
+
+        wikiaApi.getGamingItemsList(RetrofitWikiaApi.CONTROLLER, RetrofitWikiaApi.GET_LIST, RetrofitWikiaApi.GAMING_HUB,
+                RetrofitWikiaApi.ENG_LANG, batchToLoad, new Callback<ItemsList<GamingItemInList>>() {
+                    @Override
+                    public void success(ItemsList<GamingItemInList> response, Response response2) {
+                        gamingListRepository.addAll(response.getItems());
+                        eventBus.post(new GamingItemsChangedEvent());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        MyLog.e(CLASS_TAG, "Failed to get next page gaming items: " + retrofitError.getMessage());
+                        eventBus.post(new ErrorEvent(R.string.request_error));
+                    }
+                });
+    }
 }
