@@ -18,6 +18,7 @@ import test.gyatsina.wikiatask.WikiaApplication;
 import test.gyatsina.wikiatask.adapters.GamingItemsAdapter;
 import test.gyatsina.wikiatask.api.RetrofitWikiaApi;
 import test.gyatsina.wikiatask.event.GamingItemsChangedEvent;
+import test.gyatsina.wikiatask.models.ComplexGameItem;
 import test.gyatsina.wikiatask.models.GamingItemInList;
 import test.gyatsina.wikiatask.repository.GameItemsRequestManager;
 import test.gyatsina.wikiatask.repository.Repository;
@@ -48,8 +49,8 @@ public class GamingItemsListFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        if (savedInstanceState != null) {
-//            mListState = savedInstanceState.getInt(LIST_STATE);
+        if (savedInstanceState != null) {
+            mListState = savedInstanceState.getInt(LIST_STATE);
 //            parcelState = savedInstanceState.getParcelable(PARCEL_STATE);
 //            MyLog.v("---------!!!!!!!!!!!!!!!-----------1-mListState= ", mListState);
 //            MyLog.v("---------!!!!!!!!!!!!!!!------------getLastVisiblePosition= ", gamingItemsListView.getLastVisiblePosition());
@@ -71,8 +72,10 @@ public class GamingItemsListFragment extends BaseFragment {
 //            }
 //
 //            gamingItemsListView.onRestoreInstanceState(parcelState);
-//        }
+        }
         final int position = mListState;
+        MyLog.v("***onActivityCreated  setSelection   selection ", position);
+
 //        gamingItemsListView.setSelection(21);
     }
 
@@ -91,7 +94,8 @@ public class GamingItemsListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
-        Repository<GamingItemInList> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
+//        Repository<GamingItemInList> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
+        Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
         gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitWikiaApi.getWikiaApi(getActivity()));
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
@@ -172,7 +176,8 @@ public class GamingItemsListFragment extends BaseFragment {
     }
 
     private void updateGamingList() {
-        List<GamingItemInList> gamingList = gamingRequestManager.getGamingList();
+//        List<GamingItemInList> gamingList = gamingRequestManager.getGamingList();
+        List<ComplexGameItem> gamingList = gamingRequestManager.getGamingList();
         showGamingList(gamingList);
     }
 
@@ -181,7 +186,8 @@ public class GamingItemsListFragment extends BaseFragment {
         updateGamingList();
     }
 
-    private void showGamingList(List<GamingItemInList> gamingList) {
+//    private void showGamingList(List<GamingItemInList> gamingList) {
+    private void showGamingList(List<ComplexGameItem> gamingList) {
         gamingItemsAdapter.setList(gamingList);
         if (!gamingList.isEmpty()) {
             dismissProgressDialog();

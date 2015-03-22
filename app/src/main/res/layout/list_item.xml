@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- this is the addView for a history entry -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="100dp"
@@ -18,11 +16,22 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:padding="15dp" />
+             />
 
-        <TextView
-            android:id="@+id/item_title"
-            style="@style/LogoListItemTitle" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_title"
+                style="@style/LogoListItemTitle" />
+
+            <TextView
+                android:id="@+id/item_url"
+                style="@style/LogoListItemUrl" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

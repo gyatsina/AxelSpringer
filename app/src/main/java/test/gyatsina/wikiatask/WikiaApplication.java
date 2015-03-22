@@ -4,13 +4,15 @@ import android.app.Application;
 import android.content.Context;
 
 import de.greenrobot.event.EventBus;
+import test.gyatsina.wikiatask.models.ComplexGameItem;
 import test.gyatsina.wikiatask.models.GamingItemInList;
 import test.gyatsina.wikiatask.repository.Repository;
 import test.gyatsina.wikiatask.repository.RepositoryImpl;
 
 public class WikiaApplication extends Application {
     private EventBus eventBus;
-    private Repository<GamingItemInList> gamingRepository;
+//    private Repository<GamingItemInList> gamingRepository;
+    private Repository<ComplexGameItem> gamingRepository;
 
     public static WikiaApplication from(Context context) {
         Context applicationContext = context.getApplicationContext();
@@ -28,7 +30,11 @@ public class WikiaApplication extends Application {
         return eventBus;
     }
 
-    public Repository<GamingItemInList> getGamingItemsRepository() {
+//    public Repository<GamingItemInList> getGamingItemsRepository() {
+//        return gamingRepository;
+//    }
+
+    public Repository<ComplexGameItem> getGamingItemsRepository() {
         return gamingRepository;
     }
 

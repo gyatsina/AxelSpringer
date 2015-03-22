@@ -1,76 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">WikiaTask</string>
+    <string name="app_name">Most popular Gaming wikis</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-
-    <string name="about_section">Impressum</string>
-    <string name="terms_section">Terms of Use</string>
-    <string name="contact_section">Contact</string>
-
-    <string name="main_screen_title">Tell it\'s Green</string>
-    <string name="main_option">Main</string>
-    <string name="location_option">Location</string>
-    <string name="offers_option">Offers</string>
-    <string name="products_option">Products</string>
-    <string name="logos_option">Logos</string>
-    <string name="contact_option">Contacts</string>
-    <string name="news_option">News</string>
-    <string name="scanner_option">Scanner</string>
-    <string name="search_option">Search</string>
-
-    <string name="website">Website</string>
-    <string name="call">Anrufen</string>
-
-    <string name="show_more"><b>Show More > </b></string>
-
-    <!--Search screen-->
-    <string name="search_what">What?</string>
-    <string name="search_where">Where?</string>
-
-    <!--Location list screen-->
-    <string name="call_title">Call this number:</string>
-    <string name="call_button">Call now</string>
-    <string name="call_abort">Abort</string>
-
-    <!--Contact screen-->
-    <string name="contact_name_title">Name*</string>
-    <string name="contact_phone_title">Phone</string>
-    <string name="contact_email_title">E-Mail*</string>
-    <string name="contact_subject_title">Subject*</string>
-    <string name="contact_message_title">Message*</string>
-    <string name="greetings_title">Contact Tell It\'s Green</string>
-    <string name="greetings_text">Use this form in order to get in touch! \nThe areas marked with * are required.</string>
-    <string name="greetings_success">Thank you for getting in contact with us. \nWe will get back to you.</string>
-    <string name="contact_send_button">Send</string>
-
-    <!--Logo details-->
-    <string name="logo_details_descriptioin">Description</string>
-    <string name="logo_details_more_descriptioin">Detail Description</string>
-    <string name="logo_details_shops_support">Shops Supporting</string>
-    <string name="logo_details_products">Products</string>
-
-    <!--Location details-->
-    <string name="poi_details_valuation">Bewertungen</string>
-    <string name="poi_details_address_title">Addresse</string>
-    <string name="poi_details_work_time">Öffnungszeiten</string>
-
-    <!--Product details-->
-    <string name="logo_details_headlines">Zwischenüberschrift</string>
-
-    <string-array name="days_array">
-        <item>Montag</item>
-        <item>Dienstag</item>
-        <item>Mittwoch</item>
-        <item>Donnerstag</item>
-        <item>Freitag</item>
-        <item>Samstag</item>
-        <item>Sonntag</item>
-    </string-array>
+    <string name="welcome"><b>Welcome to Wikia \n technical task!</b></string>
 
     <!--Pull to refresh strings-->
     <string name="refresh_pull_down">Pull down to refresh</string>
@@ -79,16 +11,8 @@
 
     <!--Errors, toast messages-->
     <string name="request_error">Unfortunately Wikia was not able to load items</string>
-    <string name="own_location_error">Unfortunately TIG was not able to get your location</string>
-    <string name="empty_product_list_error">Unfortunately there are no products for this logo</string>
-    <string name="empty_poi_list_error">Unfortunately there are no shops for this logo</string>
-    <string name="phone_error">Please verify your phone number</string>
-    <string name="name_error">Please verify your name</string>
-    <string name="email_error">Please verify your E-Mail</string>
-    <string name="text_error">Field cannot be empty</string>
 
     <!--Alert dialog messages-->
     <string name="progress">In progress</string>
     <string name="progress_loading">Loading...</string>
-
 </resources>
