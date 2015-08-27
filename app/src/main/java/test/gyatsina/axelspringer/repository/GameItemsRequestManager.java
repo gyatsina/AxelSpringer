@@ -9,14 +9,15 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import test.gyatsina.axelspringer.R;
-import test.gyatsina.axelspringer.api.RetrofitWikiaApi;
-import test.gyatsina.axelspringer.api.WikiaApi;
+import test.gyatsina.axelspringer.api.RetrofitShutterStockApi;
+import test.gyatsina.axelspringer.api.ShutterStockApi;
 import test.gyatsina.axelspringer.event.ErrorEvent;
 import test.gyatsina.axelspringer.event.GamingItemsChangedEvent;
 import test.gyatsina.axelspringer.models.ComplexGameItem;
 import test.gyatsina.axelspringer.models.DetailedItemById;
 import test.gyatsina.axelspringer.models.DetailedItemsContainer;
 import test.gyatsina.axelspringer.models.GamingItemInList;
+import test.gyatsina.axelspringer.models.ImagesResponse;
 import test.gyatsina.axelspringer.models.ItemsList;
 import test.gyatsina.axelspringer.utils.MyLog;
 
@@ -27,17 +28,46 @@ public class GameItemsRequestManager {
     private static final String CLASS_TAG = "GameItemsRequestManager";
     private final EventBus eventBus;
     private final Repository<ComplexGameItem> gamingListRepository;
-    private final WikiaApi wikiaApi;
+    private final ShutterStockApi shutterStockApi;
     private final int itemsInBatch = 25;
+    private ImagesResponse images;
 
-    public GameItemsRequestManager(EventBus eventBus, Repository<ComplexGameItem> gamingListRepository, WikiaApi wikiaApi) {
+    public GameItemsRequestManager(EventBus eventBus, Repository<ComplexGameItem> gamingListRepository, ShutterStockApi wikiaApi) {
         this.eventBus = eventBus;
         this.gamingListRepository = gamingListRepository;
-        this.wikiaApi = wikiaApi;
+        this.shutterStockApi = wikiaApi;
     }
 
     public void cleanGamingListRepository() {
         gamingListRepository.removeAll();
+    }
+
+    public ImagesResponse getFlowerImagesList() {
+        ImagesResponse images;
+        shutterStockApi.getFlowerImages(RetrofitShutterStockApi.FLOWER_QUERY, RetrofitShutterStockApi.DEFAULT_PER_PAGE,
+                new Callback<ImagesResponse>() {
+                    @Override
+                    public void success(ImagesResponse response, Response response2) {
+                        String url = response.getData().get(0).getAssets().getLargeThumb().getUrl();
+                        setData(response);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError retrofitError) {
+                        MyLog.e(CLASS_TAG, "Failed to get flower items list: " + retrofitError.getMessage());
+                        eventBus.post(new ErrorEvent(R.string.request_error));
+                    }
+                });
+
+        return getData();
+    }
+
+    private void setData(ImagesResponse response) {
+        images = response;
+    }
+
+    private ImagesResponse getData() {
+        return images;
     }
 
     /**
@@ -47,13 +77,13 @@ public class GameItemsRequestManager {
      */
     public List<ComplexGameItem> getGamingList() {
         if (gamingListRepository.size() == 0) {
-            wikiaApi.getGamingItemsList(RetrofitWikiaApi.CONTROLLER, RetrofitWikiaApi.GET_LIST, RetrofitWikiaApi.GAMING_HUB,
-                    RetrofitWikiaApi.ENG_LANG, 1, new Callback<ItemsList<GamingItemInList>>() {
+            shutterStockApi.getGamingItemsList(RetrofitShutterStockApi.CONTROLLER, RetrofitShutterStockApi.GET_LIST, RetrofitShutterStockApi.GAMING_HUB,
+                    RetrofitShutterStockApi.ENG_LANG, 1, new Callback<ItemsList<GamingItemInList>>() {
                         @Override
                         public void success(ItemsList<GamingItemInList> response, Response response2) {
                             final ItemsList<GamingItemInList> gamingItemsInList = response;
                             String idsForDetails = formDetailedIdsParameter(gamingItemsInList);
-                            wikiaApi.getDetailedItemsById(RetrofitWikiaApi.CONTROLLER, RetrofitWikiaApi.GET_DETAILS, idsForDetails,
+                            shutterStockApi.getDetailedItemsById(RetrofitShutterStockApi.CONTROLLER, RetrofitShutterStockApi.GET_DETAILS, idsForDetails,
                                     new Callback<DetailedItemsContainer<HashMap<Integer, DetailedItemById>>>() {
                                         @Override
                                         public void success(DetailedItemsContainer<HashMap<Integer, DetailedItemById>> responseDetailed, Response response2) {
@@ -94,13 +124,13 @@ public class GameItemsRequestManager {
             return;
         }
 
-        wikiaApi.getGamingItemsList(RetrofitWikiaApi.CONTROLLER, RetrofitWikiaApi.GET_LIST, RetrofitWikiaApi.GAMING_HUB,
-                RetrofitWikiaApi.ENG_LANG, batchToLoad, new Callback<ItemsList<GamingItemInList>>() {
+        shutterStockApi.getGamingItemsList(RetrofitShutterStockApi.CONTROLLER, RetrofitShutterStockApi.GET_LIST, RetrofitShutterStockApi.GAMING_HUB,
+                RetrofitShutterStockApi.ENG_LANG, batchToLoad, new Callback<ItemsList<GamingItemInList>>() {
                     @Override
                     public void success(ItemsList<GamingItemInList> response, Response response2) {
                         final ItemsList<GamingItemInList> gamingItemsInList = response;
                         String idsForDetails = formDetailedIdsParameter(gamingItemsInList);
-                        wikiaApi.getDetailedItemsById(RetrofitWikiaApi.CONTROLLER, RetrofitWikiaApi.GET_DETAILS, idsForDetails,
+                        shutterStockApi.getDetailedItemsById(RetrofitShutterStockApi.CONTROLLER, RetrofitShutterStockApi.GET_DETAILS, idsForDetails,
                                 new Callback<DetailedItemsContainer<HashMap<Integer, DetailedItemById>>>() {
                                     @Override
                                     public void success(DetailedItemsContainer<HashMap<Integer, DetailedItemById>> responseDetailed, Response response2) {

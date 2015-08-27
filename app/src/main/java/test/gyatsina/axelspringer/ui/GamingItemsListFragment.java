@@ -16,7 +16,7 @@ import java.util.List;
 import test.gyatsina.axelspringer.R;
 import test.gyatsina.axelspringer.WikiaApplication;
 import test.gyatsina.axelspringer.adapters.GamingItemsAdapter;
-import test.gyatsina.axelspringer.api.RetrofitWikiaApi;
+import test.gyatsina.axelspringer.api.RetrofitShutterStockApi;
 import test.gyatsina.axelspringer.event.GamingItemsChangedEvent;
 import test.gyatsina.axelspringer.models.ComplexGameItem;
 import test.gyatsina.axelspringer.repository.GameItemsRequestManager;
@@ -61,14 +61,15 @@ public class GamingItemsListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         showLoadingProgressDialog();
-        updateGamingList();
+//        updateGamingList();
+        gamingRequestManager.getFlowerImagesList();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
         Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
-        gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitWikiaApi.getWikiaApi());
+        gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitShutterStockApi.getWikiaApi(getActivity()));
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
         gamingItemsListView = refreshableListView.getRefreshableView();
