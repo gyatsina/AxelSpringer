@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * Created by gyatsina
  */
+
+// Class for parsed Image response model received from backend
 public class ImagesResponse {
     private int page;
     @SerializedName("per_page")

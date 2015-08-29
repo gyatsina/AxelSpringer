@@ -8,7 +8,6 @@ public class ShutterStockConfig {
     public final static String BASE64_ID_SECRET = "test.gyatsina.axelspringer.BASE64_ID_SECRET";
 
     private ShutterStockConfig() {
-
         //		helper class with constants
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
  * Created by gyatsina
  */
 
+// Basic implementation of list adapter
 public abstract class BindableArrayAdapter<T> extends BindableAdapter<T> {
 
     private List<T> list;

@@ -2,47 +2,47 @@ package test.gyatsina.axelspringer.utils;
 
 import android.util.Log;
 
-import test.gyatsina.axelspringer.WikiaFlags;
+import test.gyatsina.axelspringer.AxelSpringerFlags;
 
 
 public class MyLog {
 
     public static void e(String tag, String message, Throwable tr) {
 
-        if (WikiaFlags.LOG_ENABLED) {
+        if (AxelSpringerFlags.LOG_ENABLED) {
             Log.e(tag, message, tr);
         }
     }
 
     public static void e(String tag, String message) {
 
-        if (WikiaFlags.LOG_ENABLED) {
+        if (AxelSpringerFlags.LOG_ENABLED) {
             Log.e(tag, message);
         }
     }
 
     public static void v(String tag, String message) {
 
-        if (WikiaFlags.LOG_ENABLED) {
+        if (AxelSpringerFlags.LOG_ENABLED) {
             Log.v("-------" + tag, message);
         }
     }
 
     public static void v(String tag, boolean message) {
 
-        if (WikiaFlags.LOG_ENABLED) {
+        if (AxelSpringerFlags.LOG_ENABLED) {
             Log.v("-------" + tag, Boolean.toString(message));
         }
     }
 
     public static void v(String tag, int message) {
-        if (WikiaFlags.LOG_ENABLED) {
+        if (AxelSpringerFlags.LOG_ENABLED) {
             Log.v("-------" + tag, Integer.toString(message));
         }
     }
 
     public static void v(String tag, CharSequence message) {
-        if (WikiaFlags.LOG_ENABLED) {
+        if (AxelSpringerFlags.LOG_ENABLED) {
             Log.v("-------" + tag, message.toString());
         }
     }

@@ -19,26 +19,30 @@ import test.gyatsina.axelspringer.utils.MyLog;
 /**
  * Created by gyatsina
  */
+
+/*
+This class performs requests to API and handles success/failure cases for response
+ */
 public class ImagesRequestManager {
     private static final String CLASS_TAG = ImagesRequestManager.class.getName();
     private final EventBus eventBus;
     private final Repository<ShutterImage> flowerImagesRepository;
     private final ShutterStockApi shutterStockApi;
 
-    public ImagesRequestManager(EventBus eventBus, Repository<ShutterImage> gamingListRepository, ShutterStockApi shutterStockApi1) {
+    public ImagesRequestManager(EventBus eventBus, Repository<ShutterImage> imagesListRepository, ShutterStockApi shutterStockApi1) {
         this.eventBus = eventBus;
-        this.flowerImagesRepository = gamingListRepository;
+        this.flowerImagesRepository = imagesListRepository;
         this.shutterStockApi = shutterStockApi1;
     }
 
-    public void cleanGamingListRepository() {
+    public void cleanFlowerImagesRepository() {
         flowerImagesRepository.removeAll();
     }
 
-    /**
-     * Method getMoreFlowerImagesList  saves items to flowerImagesRepository
-     * These items are represented on main screen
-     * flowerImagesRepository is  refreshed on onPullDownToRefresh action
+    /*
+      Method getMoreFlowerImagesList  saves items to flowerImagesRepository
+      These items are represented on main screen
+      flowerImagesRepository is  refreshed on onPullDownToRefresh action
      */
     public void getMoreFlowerImagesList() {
         int pageToLoad = RetrofitShutterStockApi.DEFAULT_PAGE;
@@ -47,7 +51,7 @@ public class ImagesRequestManager {
             flowerImagesRepository.setLimit(RetrofitShutterStockApi.LIMIT);
         } else {
             pageToLoad = getPageToload();
-            if (pageToLoad == 0){
+            if (pageToLoad == 0) {
                 return;
             }
         }
@@ -85,11 +89,11 @@ public class ImagesRequestManager {
     }
 
     public List<ShutterImage> getSavedFlowerImages() {
-        List<ShutterImage> gamingList = flowerImagesRepository.getAll();
-        if (gamingList.size() == 0) {
+        List<ShutterImage> imagesList = flowerImagesRepository.getAll();
+        if (imagesList.size() == 0) {
             getMoreFlowerImagesList();
         }
 
-        return gamingList;
+        return imagesList;
     }
 }

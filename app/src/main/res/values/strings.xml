@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_title">Most popular flower images</string>
-    <string name="app_name">Axel Springer Task</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">AxelSpringer Task</string>
     <string name="welcome"><b>[ Welcome to ] \n \n [ Axel Springer technical task! ]</b></string>
 
     <!--Pull to refresh strings-->
     <string name="refresh_pull_down">Pull down to refresh</string>
     <string name="refresh_loading">Loading</string>
     <string name="refresh_release">Release to refresh</string>
+
+    <!--Item in list strings-->
+    <string name="image_id">Image id is: </string>
 
     <!--Errors, toast messages-->
     <string name="request_error">Unfortunately application was not able to load items</string>

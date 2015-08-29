@@ -13,31 +13,36 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.List;
 
+import test.gyatsina.axelspringer.AxelSpringerApplication;
 import test.gyatsina.axelspringer.R;
-import test.gyatsina.axelspringer.WikiaApplication;
-import test.gyatsina.axelspringer.adapters.GamingItemsAdapter;
+import test.gyatsina.axelspringer.adapters.ImageItemsAdapter;
 import test.gyatsina.axelspringer.api.RetrofitShutterStockApi;
 import test.gyatsina.axelspringer.event.FlowerImagesChangedEvent;
 import test.gyatsina.axelspringer.models.ShutterImage;
 import test.gyatsina.axelspringer.repository.ImagesRequestManager;
 import test.gyatsina.axelspringer.repository.Repository;
 
-public class GamingItemsListFragment extends BaseFragment {
-    public static final String CLASS_TAG = "GamingItemsListFragment";
+/*
+This fragment represents flower images in Scrollable ListView.
+PullDownToRefresh will clean all loaded items
+PullUpToRefresh will load more items up to limit
+ */
+public class ItemsListFragment extends BaseFragment {
+    public static final String CLASS_TAG = ItemsListFragment.class.getName();
     private PullToRefreshListView refreshableListView;
-    private GamingItemsAdapter gamingItemsAdapter;
-    private ImagesRequestManager gamingRequestManager;
+    private ImageItemsAdapter itemsAdapter;
+    private ImagesRequestManager imageItemsRequestManager;
     private static final String LIST_STATE = "listState";
     private static final String PARCEL_STATE = "parcelState";
     private int mListState = 0;
     private Parcelable parcelState;
-    private ListView gamingItemsListView;
+    private ListView itemstemsListView;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        int motionPosition = gamingItemsListView.getLastVisiblePosition();
-        parcelState = gamingItemsListView.onSaveInstanceState();
+        int motionPosition = itemstemsListView.getLastVisiblePosition();
+        parcelState = itemstemsListView.onSaveInstanceState();
         outState.putInt(LIST_STATE, motionPosition);
         outState.putParcelable(PARCEL_STATE, parcelState);
     }
@@ -48,7 +53,7 @@ public class GamingItemsListFragment extends BaseFragment {
 
         if (savedInstanceState != null) {
             mListState = savedInstanceState.getInt(LIST_STATE);
-            gamingItemsListView.setSelection(mListState);
+            itemstemsListView.setSelection(mListState);
         }
     }
 
@@ -61,53 +66,52 @@ public class GamingItemsListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         showLoadingProgressDialog();
-        updateGamingList();
+        updateItemsList();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
-        Repository<ShutterImage> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
-//        Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
-        gamingRequestManager = new ImagesRequestManager(getEventBus(), gamingRepository, RetrofitShutterStockApi.getWikiaApi(getActivity()));
+        Repository<ShutterImage> flowerImagesRepository = AxelSpringerApplication.from(getActivity()).getFlowerImagesRepository();
+        imageItemsRequestManager = new ImagesRequestManager(getEventBus(), flowerImagesRepository, RetrofitShutterStockApi.getShutterStockApi(getActivity()));
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
-        gamingItemsListView = refreshableListView.getRefreshableView();
-        gamingItemsListView.setDividerHeight(1);
-        gamingItemsAdapter = new GamingItemsAdapter(getActivity());
-        gamingItemsListView.setAdapter(gamingItemsAdapter);
+        itemstemsListView = refreshableListView.getRefreshableView();
+        itemstemsListView.setDividerHeight(1);
+        itemsAdapter = new ImageItemsAdapter(getActivity());
+        itemstemsListView.setAdapter(itemsAdapter);
 
         refreshableListView.setMode(PullToRefreshBase.Mode.BOTH);
         refreshableListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> listViewPullToRefreshBase) {
                 showLoadingProgressDialog();
-                gamingRequestManager.cleanGamingListRepository();
-                updateGamingList();
+                imageItemsRequestManager.cleanFlowerImagesRepository();
+                updateItemsList();
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> listViewPullToRefreshBase) {
-                gamingRequestManager.getMoreFlowerImagesList();
+                imageItemsRequestManager.getMoreFlowerImagesList();
             }
         });
 
         return fragmentView;
     }
 
-    private void updateGamingList() {
-        List<ShutterImage> gamingList = gamingRequestManager.getSavedFlowerImages();
-        showGamingList(gamingList);
+    private void updateItemsList() {
+        List<ShutterImage> flowerItemsList = imageItemsRequestManager.getSavedFlowerImages();
+        showItemsList(flowerItemsList);
     }
 
     @SuppressWarnings("unused") // EventBus
     public void onEventMainThread(FlowerImagesChangedEvent event) {
-        updateGamingList();
+        updateItemsList();
     }
 
-    private void showGamingList(List<ShutterImage> gamingList) {
-        gamingItemsAdapter.setList(gamingList);
-        if (!gamingList.isEmpty()) {
+    private void showItemsList(List<ShutterImage> flowerItemsList) {
+        itemsAdapter.setList(flowerItemsList);
+        if (!flowerItemsList.isEmpty()) {
             dismissProgressDialog();
         }
 
@@ -118,6 +122,5 @@ public class GamingItemsListFragment extends BaseFragment {
                 refreshableListView.onRefreshComplete();
             }
         }, 100);
-
     }
 }

@@ -20,10 +20,6 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("key/myreleasekey.keystore")
-            storePassword "pass4wikiatask"
-            keyAlias "test.gyatsina.wikiatask"
-            keyPassword "pass4wikiatask"
         }
     }
 }

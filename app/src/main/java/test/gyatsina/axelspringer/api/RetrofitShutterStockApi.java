@@ -14,13 +14,19 @@ import retrofit.RestAdapter;
 import retrofit.RestAdapter.Log;
 import retrofit.RestAdapter.LogLevel;
 import retrofit.client.OkClient;
-import test.gyatsina.axelspringer.WikiaFlags;
+import test.gyatsina.axelspringer.AxelSpringerFlags;
 
 import static test.gyatsina.axelspringer.utils.MyLog.logv;
 
 /**
  * Created by gyatsina
  */
+
+/* This is basic API class
+It creates OkHttpClient, attaches header
+Header for requests is saved in AndroidManifest.
+It represents form: (CLIENT_ID:CLIENT_SECRET) encoded in Base64
+*/
 public class RetrofitShutterStockApi {
 
     private static final String TAG = RetrofitShutterStockApi.class.getName();
@@ -33,7 +39,7 @@ public class RetrofitShutterStockApi {
     private static Context context;
 
     static {
-        LogLevel logLevel = WikiaFlags.LOG_ENABLED ? LogLevel.FULL : LogLevel.NONE;
+        LogLevel logLevel = AxelSpringerFlags.LOG_ENABLED ? LogLevel.FULL : LogLevel.NONE;
         Log log = new Log() {
 
             @Override
@@ -51,7 +57,7 @@ public class RetrofitShutterStockApi {
                         Bundle bundle = app.metaData;
                         String base64IdSecret = bundle.getString(ShutterStockConfig.BASE64_ID_SECRET);
 
-                        requestFacade.addHeader("Authorization", "Basic "+base64IdSecret);
+                        requestFacade.addHeader("Authorization", "Basic " + base64IdSecret);
                     } catch (PackageManager.NameNotFoundException e) {
                         return;
                     }
@@ -77,7 +83,7 @@ public class RetrofitShutterStockApi {
         // This is a singleton
     }
 
-    public static ShutterStockApi getWikiaApi(Context mContext) {
+    public static ShutterStockApi getShutterStockApi(Context mContext) {
         context = mContext;
         if (shutterStockApi == null) {
             throw new IllegalStateException("You need to call init function first!");

@@ -23,7 +23,6 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//                startActivity(new Intent(SplashActivity.this, TestActivity.class));
                 finish();
             }
         }, TWO_SECONDS);

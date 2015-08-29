@@ -16,10 +16,14 @@ import test.gyatsina.axelspringer.models.ShutterImage;
 /**
  * Created by gyatsina
  */
-public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
+
+/* This class is adapter for flower image items representation
+Adapter is binding views to layout
+ */
+public class ImageItemsAdapter extends BindableArrayAdapter<ShutterImage> {
     Context context;
 
-    public GamingItemsAdapter(Context context) {
+    public ImageItemsAdapter(Context context) {
         super(context);
         this.context = context;
     }
@@ -30,7 +34,7 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
         mainLayout.setClickable(false);
         bindContentThumbnail(view, itemData);
         bindTitleText(view, itemData);
-        bindUrlText(view, itemData);
+        bindDescriptionText(view, itemData);
     }
 
     private void bindContentThumbnail(View view, ShutterImage itemData) {
@@ -62,13 +66,14 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
     }
 
     private void bindTitleText(View view, ShutterImage itemData) {
-        TextView title = ViewHolder.get(view, R.id.item_title);
-        title.setText(String.valueOf(itemData.getId()));
+        TextView titleView = ViewHolder.get(view, R.id.item_title);
+        titleView.setText(itemData.getDescription());
     }
 
-    private void bindUrlText(View view, ShutterImage itemData) {
-        TextView title = ViewHolder.get(view, R.id.item_url);
-        title.setText(itemData.getDescription());
+    private void bindDescriptionText(View view, ShutterImage itemData) {
+        TextView descriptionTextView = ViewHolder.get(view, R.id.item_url);
+        String text = context.getResources().getString(R.string.image_id) + String.valueOf(itemData.getId());
+        descriptionTextView.setText(text);
     }
 
 

@@ -3,8 +3,10 @@ package test.gyatsina.axelspringer.models;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Admin on 28.08.2015.
+ * Created by gyatsina
  */
+
+// Class for parsed Thumb model received from backend
 public class ThumbHolder {
     @SerializedName("large_thumb")
     private LargeThumb largeThumb;

@@ -1,8 +1,10 @@
 package test.gyatsina.axelspringer.models;
 
 /**
- * Created by Admin on 28.08.2015.
+ * Created by gyatsina
  */
+
+// Class for parsed Image model received from backend
 public class ShutterImage {
     private int id;
     private ThumbHolder assets;

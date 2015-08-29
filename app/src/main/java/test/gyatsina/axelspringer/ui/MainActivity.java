@@ -20,10 +20,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            GamingItemsListFragment gamingFragment = new GamingItemsListFragment();
-            showFragment(gamingFragment, false, GamingItemsListFragment.CLASS_TAG);
+            ItemsListFragment gamingFragment = new ItemsListFragment();
+            showFragment(gamingFragment, false, ItemsListFragment.CLASS_TAG);
         } else {
-            GamingItemsListFragment gamingFragment = (GamingItemsListFragment) getSupportFragmentManager().findFragmentByTag(GamingItemsListFragment.CLASS_TAG);
+            ItemsListFragment gamingFragment = (ItemsListFragment) getSupportFragmentManager().findFragmentByTag(ItemsListFragment.CLASS_TAG);
         }
     }
 

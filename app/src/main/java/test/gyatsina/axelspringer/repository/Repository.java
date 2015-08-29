@@ -5,6 +5,8 @@ import java.util.List;
 /**
  * Created by gyatsina
  */
+
+// This  is basic repository interface
 public interface Repository<T> {
     void add(T item);
 

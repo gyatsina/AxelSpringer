@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * Created by gyatsina
  */
+
+// This class is basic repository implementation
 public class RepositoryImpl<T> implements Repository<T> {
     private List<T> items;
     private int maxBatch;

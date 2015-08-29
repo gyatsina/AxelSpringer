@@ -8,6 +8,8 @@ import test.gyatsina.axelspringer.models.ImagesResponse;
 /**
  * Created by gyatsina
  */
+
+// This is interface for creating requests to API
 public interface ShutterStockApi {
 
     @GET("/v2/images/search")
