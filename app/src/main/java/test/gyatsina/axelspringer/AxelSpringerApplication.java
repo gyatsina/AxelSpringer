@@ -34,10 +34,4 @@ public class AxelSpringerApplication extends Application {
     public Repository<ShutterImage> getFlowerImagesRepository() {
         return gamingRepository;
     }
-
-//    public Repository<ShutterImage> getFlowerImagesRepository() {
-//        return gamingRepository;
-//    }
-
-
 }
