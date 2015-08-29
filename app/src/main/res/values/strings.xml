@@ -11,7 +11,7 @@
     <string name="refresh_release">Release to refresh</string>
 
     <!--Errors, toast messages-->
-    <string name="request_error">Unfortunately Wikia was not able to load items</string>
+    <string name="request_error">Unfortunately application was not able to load items</string>
 
     <!--Alert dialog messages-->
     <string name="progress">In progress</string>

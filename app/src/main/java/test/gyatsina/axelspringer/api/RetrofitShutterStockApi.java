@@ -25,13 +25,10 @@ public class RetrofitShutterStockApi {
 
     private static final String TAG = RetrofitShutterStockApi.class.getName();
     public static final String FLOWER_QUERY = "flower";
-    public static final int DEFAULT_PER_PAGE = 10;
+    public static final int DEFAULT_PAGE = 1;
+    public static final int PER_PAGE = 10;
+    public static final int LIMIT = 100;
 
-    public static final String CONTROLLER = "WikisApi";
-    public static final String GET_LIST = "getList";
-    public static final String GET_DETAILS = "getDetails";
-    public static final String GAMING_HUB = "Gaming";
-    public static final String ENG_LANG = "en";
     private static final ShutterStockApi shutterStockApi;
     private static Context context;
 

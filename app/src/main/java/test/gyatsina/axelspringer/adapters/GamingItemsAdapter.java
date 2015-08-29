@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import test.gyatsina.axelspringer.R;
-import test.gyatsina.axelspringer.models.ComplexGameItem;
 import test.gyatsina.axelspringer.models.ShutterImage;
 
 /**
@@ -26,7 +25,6 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
     }
 
     @Override
-//    public void bindView(GamingItemInList itemData, int position, View view) {
     public void bindView(ShutterImage itemData, int position, View view) {
         View mainLayout = ViewHolder.get(view, R.id.main_layout_litem);
         mainLayout.setClickable(false);
@@ -35,7 +33,6 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
         bindUrlText(view, itemData);
     }
 
-//    private void bindContentThumbnail(View view, GamingItemInList itemData) {
     private void bindContentThumbnail(View view, ShutterImage itemData) {
         ImageView imageView = ViewHolder.get(view, R.id.item_thumbnail);
         String thumbnailUriString = itemData.getAssets().getLargeThumb().getUrl();
@@ -64,13 +61,11 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
                 .into(imageView);
     }
 
-//    private void bindTitleText(View view, GamingItemInList itemData) {
     private void bindTitleText(View view, ShutterImage itemData) {
         TextView title = ViewHolder.get(view, R.id.item_title);
         title.setText(String.valueOf(itemData.getId()));
     }
 
-//    private void bindUrlText(View view, GamingItemInList itemData) {
     private void bindUrlText(View view, ShutterImage itemData) {
         TextView title = ViewHolder.get(view, R.id.item_url);
         title.setText(itemData.getDescription());

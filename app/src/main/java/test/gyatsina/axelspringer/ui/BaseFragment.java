@@ -55,10 +55,6 @@ public class BaseFragment extends Fragment {
         getAppActivity().showProgressDialog(getResources().getString(R.string.progress), getResources().getString(R.string.progress_loading), true);
     }
 
-    protected void showProgressDialog(String title, final String message) {
-        getAppActivity().showProgressDialog(title, message);
-    }
-
     protected void dismissProgressDialog() {
         BaseActivity activity = getAppActivity();
         if (activity != null) {

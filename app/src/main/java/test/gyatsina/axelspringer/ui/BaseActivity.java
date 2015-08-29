@@ -15,18 +15,23 @@ public class BaseActivity extends ActionBarActivity {
         if (!cancelable) {
             showProgressDialog(title, message);
         } else {
-            createProgressDialog();
-            progressDialog.setTitle(title);
-            progressDialog.setMessage(message);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface arg0) {
-                    finish();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    createProgressDialog();
+                    progressDialog.setTitle(title);
+                    progressDialog.setMessage(message);
+                    progressDialog.setIndeterminate(true);
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        public void onCancel(DialogInterface arg0) {
+                            finish();
+                        }
+                    });
+
+                    progressDialog.show();
                 }
             });
-
-            progressDialog.show();
         }
     }
 
@@ -46,7 +51,9 @@ public class BaseActivity extends ActionBarActivity {
     }
 
     protected void createProgressDialog() {
-        progressDialog = new ProgressDialog(new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(new ContextThemeWrapper(this, android.R.style.Theme_DeviceDefault_Light_Dialog));
+        }
     }
 
     public void dismissProgressDialog() {

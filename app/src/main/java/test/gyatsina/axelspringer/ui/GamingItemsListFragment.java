@@ -19,14 +19,14 @@ import test.gyatsina.axelspringer.adapters.GamingItemsAdapter;
 import test.gyatsina.axelspringer.api.RetrofitShutterStockApi;
 import test.gyatsina.axelspringer.event.FlowerImagesChangedEvent;
 import test.gyatsina.axelspringer.models.ShutterImage;
-import test.gyatsina.axelspringer.repository.GameItemsRequestManager;
+import test.gyatsina.axelspringer.repository.ImagesRequestManager;
 import test.gyatsina.axelspringer.repository.Repository;
 
 public class GamingItemsListFragment extends BaseFragment {
     public static final String CLASS_TAG = "GamingItemsListFragment";
     private PullToRefreshListView refreshableListView;
     private GamingItemsAdapter gamingItemsAdapter;
-    private GameItemsRequestManager gamingRequestManager;
+    private ImagesRequestManager gamingRequestManager;
     private static final String LIST_STATE = "listState";
     private static final String PARCEL_STATE = "parcelState";
     private int mListState = 0;
@@ -62,7 +62,6 @@ public class GamingItemsListFragment extends BaseFragment {
         super.onResume();
         showLoadingProgressDialog();
         updateGamingList();
-//        gamingRequestManager.getFlowerImagesList();
     }
 
     @Override
@@ -70,7 +69,7 @@ public class GamingItemsListFragment extends BaseFragment {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
         Repository<ShutterImage> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
 //        Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
-        gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitShutterStockApi.getWikiaApi(getActivity()));
+        gamingRequestManager = new ImagesRequestManager(getEventBus(), gamingRepository, RetrofitShutterStockApi.getWikiaApi(getActivity()));
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
         gamingItemsListView = refreshableListView.getRefreshableView();
@@ -89,7 +88,7 @@ public class GamingItemsListFragment extends BaseFragment {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> listViewPullToRefreshBase) {
-//                gamingRequestManager.getGamingListNextItems();
+                gamingRequestManager.getMoreFlowerImagesList();
             }
         });
 
@@ -97,7 +96,7 @@ public class GamingItemsListFragment extends BaseFragment {
     }
 
     private void updateGamingList() {
-        List<ShutterImage> gamingList = gamingRequestManager.getFlowerImagesList();
+        List<ShutterImage> gamingList = gamingRequestManager.getSavedFlowerImages();
         showGamingList(gamingList);
     }
 
