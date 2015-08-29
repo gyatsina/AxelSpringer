@@ -5,6 +5,8 @@ import android.content.Context;
 
 import de.greenrobot.event.EventBus;
 import test.gyatsina.axelspringer.models.ComplexGameItem;
+import test.gyatsina.axelspringer.models.ImagesResponse;
+import test.gyatsina.axelspringer.models.ShutterImage;
 import test.gyatsina.axelspringer.repository.Repository;
 import test.gyatsina.axelspringer.repository.RepositoryImpl;
 
@@ -13,7 +15,7 @@ import test.gyatsina.axelspringer.repository.RepositoryImpl;
  */
 public class WikiaApplication extends Application {
     private EventBus eventBus;
-    private Repository<ComplexGameItem> gamingRepository;
+    private Repository<ShutterImage> gamingRepository;
 
     public static WikiaApplication from(Context context) {
         Context applicationContext = context.getApplicationContext();
@@ -31,9 +33,13 @@ public class WikiaApplication extends Application {
         return eventBus;
     }
 
-    public Repository<ComplexGameItem> getGamingItemsRepository() {
+    public Repository<ShutterImage> getGamingItemsRepository() {
         return gamingRepository;
     }
+
+//    public Repository<ShutterImage> getGamingItemsRepository() {
+//        return gamingRepository;
+//    }
 
 
 }

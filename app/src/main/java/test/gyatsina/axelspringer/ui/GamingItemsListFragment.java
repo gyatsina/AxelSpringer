@@ -17,8 +17,8 @@ import test.gyatsina.axelspringer.R;
 import test.gyatsina.axelspringer.WikiaApplication;
 import test.gyatsina.axelspringer.adapters.GamingItemsAdapter;
 import test.gyatsina.axelspringer.api.RetrofitShutterStockApi;
-import test.gyatsina.axelspringer.event.GamingItemsChangedEvent;
-import test.gyatsina.axelspringer.models.ComplexGameItem;
+import test.gyatsina.axelspringer.event.FlowerImagesChangedEvent;
+import test.gyatsina.axelspringer.models.ShutterImage;
 import test.gyatsina.axelspringer.repository.GameItemsRequestManager;
 import test.gyatsina.axelspringer.repository.Repository;
 
@@ -61,14 +61,15 @@ public class GamingItemsListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         showLoadingProgressDialog();
-//        updateGamingList();
-        gamingRequestManager.getFlowerImagesList();
+        updateGamingList();
+//        gamingRequestManager.getFlowerImagesList();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.list_fragment, container, false);
-        Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
+        Repository<ShutterImage> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
+//        Repository<ComplexGameItem> gamingRepository = WikiaApplication.from(getActivity()).getGamingItemsRepository();
         gamingRequestManager = new GameItemsRequestManager(getEventBus(), gamingRepository, RetrofitShutterStockApi.getWikiaApi(getActivity()));
 
         refreshableListView = (PullToRefreshListView) fragmentView.findViewById(R.id.main_listview);
@@ -88,7 +89,7 @@ public class GamingItemsListFragment extends BaseFragment {
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> listViewPullToRefreshBase) {
-                gamingRequestManager.getGamingListNextItems();
+//                gamingRequestManager.getGamingListNextItems();
             }
         });
 
@@ -96,16 +97,16 @@ public class GamingItemsListFragment extends BaseFragment {
     }
 
     private void updateGamingList() {
-        List<ComplexGameItem> gamingList = gamingRequestManager.getGamingList();
+        List<ShutterImage> gamingList = gamingRequestManager.getFlowerImagesList();
         showGamingList(gamingList);
     }
 
     @SuppressWarnings("unused") // EventBus
-    public void onEventMainThread(GamingItemsChangedEvent event) {
+    public void onEventMainThread(FlowerImagesChangedEvent event) {
         updateGamingList();
     }
 
-    private void showGamingList(List<ComplexGameItem> gamingList) {
+    private void showGamingList(List<ShutterImage> gamingList) {
         gamingItemsAdapter.setList(gamingList);
         if (!gamingList.isEmpty()) {
             dismissProgressDialog();

@@ -12,11 +12,12 @@ import com.squareup.picasso.Picasso;
 
 import test.gyatsina.axelspringer.R;
 import test.gyatsina.axelspringer.models.ComplexGameItem;
+import test.gyatsina.axelspringer.models.ShutterImage;
 
 /**
  * Created by gyatsina
  */
-public class GamingItemsAdapter extends BindableArrayAdapter<ComplexGameItem> {
+public class GamingItemsAdapter extends BindableArrayAdapter<ShutterImage> {
     Context context;
 
     public GamingItemsAdapter(Context context) {
@@ -26,7 +27,7 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ComplexGameItem> {
 
     @Override
 //    public void bindView(GamingItemInList itemData, int position, View view) {
-    public void bindView(ComplexGameItem itemData, int position, View view) {
+    public void bindView(ShutterImage itemData, int position, View view) {
         View mainLayout = ViewHolder.get(view, R.id.main_layout_litem);
         mainLayout.setClickable(false);
         bindContentThumbnail(view, itemData);
@@ -35,9 +36,9 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ComplexGameItem> {
     }
 
 //    private void bindContentThumbnail(View view, GamingItemInList itemData) {
-    private void bindContentThumbnail(View view, ComplexGameItem itemData) {
+    private void bindContentThumbnail(View view, ShutterImage itemData) {
         ImageView imageView = ViewHolder.get(view, R.id.item_thumbnail);
-        String thumbnailUriString = itemData.getImage();
+        String thumbnailUriString = itemData.getAssets().getLargeThumb().getUrl();
         if (thumbnailUriString == null) {
             showDummyImage(imageView);
         } else {
@@ -64,15 +65,15 @@ public class GamingItemsAdapter extends BindableArrayAdapter<ComplexGameItem> {
     }
 
 //    private void bindTitleText(View view, GamingItemInList itemData) {
-    private void bindTitleText(View view, ComplexGameItem itemData) {
+    private void bindTitleText(View view, ShutterImage itemData) {
         TextView title = ViewHolder.get(view, R.id.item_title);
-        title.setText(itemData.getName());
+        title.setText(String.valueOf(itemData.getId()));
     }
 
 //    private void bindUrlText(View view, GamingItemInList itemData) {
-    private void bindUrlText(View view, ComplexGameItem itemData) {
+    private void bindUrlText(View view, ShutterImage itemData) {
         TextView title = ViewHolder.get(view, R.id.item_url);
-        title.setText(itemData.getDomain());
+        title.setText(itemData.getDescription());
     }
 
 

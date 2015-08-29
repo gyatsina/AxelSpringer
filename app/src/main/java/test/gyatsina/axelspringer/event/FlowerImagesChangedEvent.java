@@ -3,8 +3,8 @@ package test.gyatsina.axelspringer.event;
 /**
  * Created by gyatsina
  */
-public class GamingItemsChangedEvent {
+public class FlowerImagesChangedEvent {
 
-  public GamingItemsChangedEvent() {
+  public FlowerImagesChangedEvent() {
   }
 }
