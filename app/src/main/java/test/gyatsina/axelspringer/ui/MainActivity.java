@@ -12,7 +12,7 @@ import test.gyatsina.axelspringer.R;
  * Created by gyatsina
  */
 public class MainActivity extends BaseActivity {
-    private static String CLASS_TAG = "MainActivity";
+    private static String CLASS_TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
