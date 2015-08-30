@@ -5,13 +5,14 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/welcome_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/splash_background"
         android:gravity="center"
-        android:singleLine="false"
-        android:textSize="25sp"
-        android:textColor="@android:color/white"
         android:lines="3"
-        android:text="@string/welcome" />
+        android:singleLine="false"
+        android:text="@string/welcome"
+        android:textColor="@android:color/white"
+        android:textSize="25sp" />
 </LinearLayout>
