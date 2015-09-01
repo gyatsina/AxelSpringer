@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="test.gyatsina.axelspringer" >
+    package="test.gyatsina.testproject" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AxelSpringerApplication"
+        android:name="test.gyatsina.testproject.TestApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
         <meta-data
-            android:name="test.gyatsina.axelspringer.BASE64_ID_SECRET"
+            android:name="test.gyatsina.testproject.BASE64_ID_SECRET"
             android:value="MjdmMzZmYjMwN2ExZGRjYzIzZjA6MGU2NzA5NGQ5NWYwZWNjYTI4NWNmNWE2NmM5OGQ4ZGFlY2RkNTVhNg=="
             />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name="test.gyatsina.testproject.ui.MainActivity"
             android:label="@string/app_title" >
         </activity>
 
         <activity
-            android:name=".ui.SplashActivity"
+            android:name="test.gyatsina.testproject.ui.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
